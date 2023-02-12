@@ -48,7 +48,7 @@ const SignIn = () => {
           <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
         </Form.Item>
         <Form.Item>
-          <a href="">Forgot password?</a>
+          <Link to={ConstantPaths.FORGOT_PASSWORD}>Forgot password?</Link>
           <br />
           <span>If you don't have an account. Click <Link to={ConstantPaths.SIGN_UP}>here.</Link></span>
         </Form.Item>

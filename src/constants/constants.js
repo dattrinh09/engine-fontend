@@ -1,5 +1,6 @@
 export const ConstantPaths = {
     HOME_PAGE: "/",
     SIGN_IN: "/auth/sign-in",
-    SIGN_UP: "/auth/sign-up"
+    SIGN_UP: "/auth/sign-up",
+    FORGOT_PASSWORD: "/auth/forgot-password"
 }
