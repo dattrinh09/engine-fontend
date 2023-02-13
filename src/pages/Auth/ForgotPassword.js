@@ -2,12 +2,20 @@ import { MailOutlined } from '@ant-design/icons'
 import { Button, Form, Input } from 'antd'
 import React, { useState } from 'react'
 import { FormContainer, FormHeading } from './form-styles'
+import axiosInstance from '../../requests/axiosInstance'
 
 const ForgotPassword = () => {
     const [error, setError] = useState("")
-    const handleFinish = values => {
-        console.log(values)
-        setError("E-mail is not valid!")
+    const handleFinish = async values => {
+        try {
+            const res = await axiosInstance.post('auth/forgot_password', values)
+            console.log(res.data);
+            // showNotification("Signin success!", "Please check your verify email!", "success", "top", 5)
+            // navigate(ConstantPaths.HOME_PAGE)
+          } catch(e) {
+            console.log(e)
+            setError(e.response.data.error.error_message)
+          }
     }
 
     return (

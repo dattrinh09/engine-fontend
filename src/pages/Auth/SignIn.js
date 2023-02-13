@@ -2,15 +2,25 @@ import { MailOutlined } from '@ant-design/icons'
 import { LockOutlined } from '@ant-design/icons/lib/icons'
 import { Button, Form, Input } from 'antd'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ConstantPaths } from '../../constants/constants'
 import { FormContainer, FormHeading } from './form-styles'
+import axiosInstance from '../../requests/axiosInstance'
+import { showNotification } from '../../ultis/notification'
 
 const SignIn = () => {
   const [error, setError] = useState("")
-  const handleFinish = values => {
-    console.log(values)
-    setError("Signin failed!")
+  const navigate = useNavigate()
+  const handleFinish = async values => {
+    try {
+      const res = await axiosInstance.post('auth/signin', values)
+      console.log(res.data);
+      showNotification("Signin success!", "Please check your verify email!", "success", "top", 5)
+      navigate(ConstantPaths.HOME_PAGE)
+    } catch(e) {
+      console.log(e)
+      setError(e.response.data.error.error_message)
+    }
   }
 
   return (

@@ -22,15 +22,17 @@ const SignUp = () => {
   const navigate = useNavigate()
   const handleFinish = async values => {
     try {
-      await axiosInstance('auth/signup', {
+      const res = await axiosInstance.post('auth/signup', {
         username: values.username,
         email: values.email,
         password: values.password
       })
+      console.log(res.data);
       showNotification("Signup success!", "Please check your verify email!", "success", "top", 5)
       navigate(ConstantPaths.HOME_PAGE)
     } catch(e) {
-      setError(e.response.error)
+      console.log(e)
+      setError(e.response.data.error.error_message)
     }
   }
 
