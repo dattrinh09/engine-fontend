@@ -28,7 +28,7 @@ const SignUp = () => {
         password: values.password
       })
       console.log(res.data);
-      showNotification("Signup success!", "Please check your verify email!", "success", "top", 5)
+      showNotification("Signup success!", "Please check your verify email!", "success", "top", 3)
       navigate(ConstantPaths.HOME_PAGE)
     } catch(e) {
       console.log(e)

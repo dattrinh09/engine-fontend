@@ -3,6 +3,7 @@ import { Button, Form, Input } from 'antd'
 import React, { useState } from 'react'
 import { FormContainer, FormHeading } from './form-styles'
 import axiosInstance from '../../requests/axiosInstance'
+import { showNotification } from '../../ultis/notification'
 
 const ForgotPassword = () => {
     const [error, setError] = useState("")
@@ -10,8 +11,7 @@ const ForgotPassword = () => {
         try {
             const res = await axiosInstance.post('auth/forgot_password', values)
             console.log(res.data);
-            // showNotification("Signin success!", "Please check your verify email!", "success", "top", 5)
-            // navigate(ConstantPaths.HOME_PAGE)
+            showNotification("Reset password!", "Please check link reset password your verify email!", "info", "top", 3)
           } catch(e) {
             console.log(e)
             setError(e.response.data.error.error_message)

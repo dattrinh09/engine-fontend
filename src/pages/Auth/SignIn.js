@@ -15,7 +15,7 @@ const SignIn = () => {
     try {
       const res = await axiosInstance.post('auth/signin', values)
       console.log(res.data);
-      showNotification("Signin success!", "Please check your verify email!", "success", "top", 5)
+      showNotification("Signin success!", "Wellcome to page!", "success", "top", 3)
       navigate(ConstantPaths.HOME_PAGE)
     } catch(e) {
       console.log(e)
