@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:8080/api/'
+const baseURL = 'https://engine-9lnc.onrender.com/api/'
 
 const axiosInstance = axios.create({
     baseURL: baseURL

@@ -1,14 +1,16 @@
 import { MailOutlined } from '@ant-design/icons'
 import { LockOutlined } from '@ant-design/icons/lib/icons'
 import { Button, Form, Input } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ConstantPaths } from '../../constants/constants'
 import { FormContainer, FormHeading } from './form-styles'
 
 const SignIn = () => {
+  const [error, setError] = useState("")
   const handleFinish = values => {
     console.log(values)
+    setError("Signin failed!")
   }
 
   return (
@@ -16,9 +18,7 @@ const SignIn = () => {
       <FormHeading>Sign In</FormHeading>
       <Form
         name="signin_form"
-        initialValues={{
-          remember: true,
-        }}
+        onFocus={() => setError("")}
         onFinish={handleFinish}
       >
         <Form.Item
@@ -47,6 +47,7 @@ const SignIn = () => {
         >
           <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
         </Form.Item>
+        {error && <span style={{ color: "red" }}>{error}</span>}
         <Form.Item>
           <Link to={ConstantPaths.FORGOT_PASSWORD}>Forgot password?</Link>
           <br />

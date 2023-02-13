@@ -1,7 +1,9 @@
-import { Button, Form, Input, notification } from 'antd'
-import React from 'react'
+import { Button, Form, Input } from 'antd'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ConstantPaths } from '../../constants/constants'
+import axiosInstance from '../../requests/axiosInstance'
+import { showNotification } from '../../ultis/notification'
 import { FormContainer, FormHeading } from './form-styles'
 
 const formItemLayout = {
@@ -16,17 +18,20 @@ const formItemLayout = {
 }
 
 const SignUp = () => {
+  const [error, setError] = useState("")
   const navigate = useNavigate()
-  const handleFinish = values => {
-    console.log(values)
-    notification.open({
-      message: "Sign up success",
-      description: "This is description",
-      placement: "topRight",
-      type: "success",
-      duration: 6
-    })
-    navigate(ConstantPaths.HOME_PAGE)
+  const handleFinish = async values => {
+    try {
+      await axiosInstance('auth/signup', {
+        username: values.username,
+        email: values.email,
+        password: values.password
+      })
+      showNotification("Signup success!", "Please check your verify email!", "success", "top", 5)
+      navigate(ConstantPaths.HOME_PAGE)
+    } catch(e) {
+      setError(e.response.error)
+    }
   }
 
   return (
@@ -102,6 +107,7 @@ const SignUp = () => {
         >
           <Input.Password />
         </Form.Item>
+        {error && <span style={{ color: "red" }}>{error}</span>}
         <Form.Item>
           <span>If you have an account. CLick <Link to={ConstantPaths.SIGN_IN}>here.</Link></span>
         </Form.Item>
