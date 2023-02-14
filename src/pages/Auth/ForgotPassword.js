@@ -9,8 +9,7 @@ const ForgotPassword = () => {
     const [error, setError] = useState("")
     const handleFinish = async values => {
         try {
-            const res = await axiosInstance.post('auth/forgot_password', values)
-            console.log(res.data);
+            await axiosInstance.post('auth/forgot_password', values)
             showNotification("Reset password!", "Please check link reset password your verify email!", "info", "top", 3)
           } catch(e) {
             console.log(e)
